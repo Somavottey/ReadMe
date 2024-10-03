@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Pop-Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ffefba, #ffffff);
+            text-align: center;
+            padding: 50px;
+            color: #333;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff6f61;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .button {
+            background-color: #ff6f61;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #e55a54;
+            transform: scale(1.05);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 2px solid #ff6f61;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            max-width: 90%;
+            animation: fadeIn 0.5s ease;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .popup h2 {
+            color: #ff6f61;
+            font-size: 26px;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 15px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .tulip {
+            width: 120px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .tulip:hover {
+            transform: scale(1.1);
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .disagree-button {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .button {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+
+            .popup h2 {
+                font-size: 22px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1>Read Me</h1>
+    <button class="button" onclick="showPopup()">Click to Reveal</button>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>🌷 A Little Change of Heart 🌷</h2>
+        <img src="https://images.unsplash.com/photo-1561570912-8f8b4aaf8b7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080"
+            alt="" class="tulip">
+        <p>I'm sorry for making you feel uncomfortable with my previous answer, but honestly, I really enjoy our
+            interactions. Your caring nature, kindness, and everything else about you truly resonate with me. As I've
+            reflected on my feelings, I've realized that I miss your kind and sweet texts. They motivate me and give me
+            energy to continue my work. Without them, I feel like something is missing.</p>
+        <p>In short, I’d like to say: "Let’s get to know each other better, because I genuinely enjoy my time with
+            you."</p>
+        <div>
+            <button class="button" onclick="handleResponse('agree')">Agree</button>
+            <button class="button disagree-button" onmouseover="moveDisagreeButton(event)" onclick="handleResponse('disagree')">Disagree</button>
+        </div>
+        <p id="responseMessage" style="margin-top: 20px; font-weight: bold;"></p>
+    </div>
+
+    <script>
+        function showPopup() {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("responseMessage").innerText = ""; // Clear previous message
+        }
+
+        function hidePopup() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
+        }
+
+        function handleResponse(response) {
+            const messageElement = document.getElementById("responseMessage");
+            if (response === 'agree') {
+                messageElement.innerText = "Thank you for agreeing! Let's get to know each other better!";
+            } else {
+                messageElement.innerText = "I appreciate your honesty. Let's keep communicating!";
+            }
+            hidePopup();
+        }
+
+        function moveDisagreeButton(event) {
+            const button = event.target;
+            const randomX = (Math.random() * 200) - 100; // Larger random X offset
+            const randomY = (Math.random() * 200) - 100; // Larger random Y offset
+            button.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+    </script>
+
+</body>
+
+</html>
